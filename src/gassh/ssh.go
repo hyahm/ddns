@@ -27,6 +27,7 @@ func Password(username string, password string) *SshConfig {
 
 func PrivateKey(username string, privitekeypath string) *SshConfig {
 	key, err := ioutil.ReadFile(privitekeypath)
+	fmt.Println(privitekeypath)
 	if err != nil {
 		panic("key not found")
 	}

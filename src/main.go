@@ -16,20 +16,20 @@ var RemoteFile string
 var AfterExec string
 
 func main() {
-	afterExec := flag.String("a", "nginx -s reload", "remote ip")
-	interval := flag.Int("t", 1, "interval time, minute")
-	remoteIp := flag.String("r", "", "remote ip")
-	remoteFile := flag.String("f", "", "remote server file path")
+	afterExec := flag.String("a", "nginx -s reload", "reload http server command")
+	interval := flag.Int("t", 60, "interval time, default 60 Second")
+	remoteIp := flag.String("r", "", "server ip")
+	remoteFile := flag.String("f", "", "remote server nginx config file path")
 	port := flag.Int("P", 22, "ssh port")
 	username := flag.String("u", "root", "ssh username")
 	password := flag.String("p", "", "ssh password")
 	keyfile := flag.String("k", "~/.ssh/id_rsa", "ssh private key")
 	flag.Parse()
 	if *remoteIp == "" {
-		log.Fatal("remote ip must be need")
+		log.Fatal("server ip must be need, use -r serverip")
 	}
 	if *remoteFile == "" {
-		log.Fatal("remotefile ip must be need")
+		log.Fatal("remotefile ip must be need, ps: -f /usr/local/nginx/conf/vhost/aa.conf")
 	}
 	RemoteIp = *remoteIp
 	AfterExec = *afterExec
@@ -52,7 +52,7 @@ func main() {
 			IP = string(s)
 		}
 		fmt.Println(string(s))
-		time.Sleep(time.Minute * time.Duration(*interval))
+		time.Sleep(time.Second * time.Duration(*interval))
 	}
 
 }

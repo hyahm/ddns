@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -39,8 +38,7 @@ func main() {
 	emailport := flag.Int("eo",0,"email username")
 	emailto := flag.String("et","","email to who")
 	flag.Parse()
-	fmt.Println(flag.Lookup("f"))
-	fmt.Println(*remoteFile)
+
 	//func main() {
 	//
 	//	verbose := flag.String("verbose", "on", "Turn verbose mode on or off.")
@@ -51,7 +49,7 @@ func main() {
 	//	fmt.Println(*verbose)
 	//
 	//}
-	os.Exit(0)
+
 	if *remoteIp == "" {
 		log.Fatal("server ip must be need, use -r serverip")
 	}

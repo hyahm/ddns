@@ -9,6 +9,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -37,6 +39,19 @@ func main() {
 	emailport := flag.Int("eo",0,"email username")
 	emailto := flag.String("et","","email to who")
 	flag.Parse()
+	fmt.Println(flag.Lookup("f"))
+	fmt.Println(*remoteFile)
+	//func main() {
+	//
+	//	verbose := flag.String("verbose", "on", "Turn verbose mode on or off.")
+	//	flag.Parse()
+	//
+	//	fmt.Println(flag.Lookup("verbose")) // print the Flag struct
+	//
+	//	fmt.Println(*verbose)
+	//
+	//}
+	os.Exit(0)
 	if *remoteIp == "" {
 		log.Fatal("server ip must be need, use -r serverip")
 	}
@@ -115,12 +130,15 @@ func execShellWithKey(username string, key string, port int, newip string) error
 }
 
 func exec(conn *gassh.SshConn, newip string) error {
-
-	_, err := conn.ExecShell(fmt.Sprintf(" sed -i 's/%s/%s/g' %s", IP, newip,RemoteFile))
-	if err != nil {
-		fmt.Println(err)
-		return err
+	rfs := strings.Split(RemoteFile,";")
+	for _,v := range rfs {
+		_, err := conn.ExecShell(fmt.Sprintf(" sed -i 's/%s/%s/g' %s", IP, newip,v))
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
 	}
+
 	fmt.Println("change success")
 	_, err = conn.ExecShell(AfterExec)
 	if err != nil {

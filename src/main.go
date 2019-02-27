@@ -140,7 +140,7 @@ func exec(conn *gassh.SshConn, newip string) error {
 	}
 
 	fmt.Println("change success")
-	_, err = conn.ExecShell(AfterExec)
+	_, err := conn.ExecShell(AfterExec)
 	if err != nil {
 		return err
 	}

@@ -49,6 +49,7 @@ func main() {
 	//	fmt.Println(*verbose)
 	//
 	//}
+
 	fmt.Println(*keyfile)
 	if *remoteIp == "" {
 		log.Fatal("server ip must be need, use -r serverip")
@@ -119,6 +120,7 @@ func execShellWithKey(username string, key string, port int, newip string) error
 		galog.Error(err.Error())
 		return err
 	}
+
 	fmt.Println("远程连接成功")
 	defer sshconn.Close()
 	err = exec(sshconn, newip)
@@ -131,6 +133,7 @@ func execShellWithKey(username string, key string, port int, newip string) error
 func exec(conn *gassh.SshConn, newip string) error {
 	rfs := strings.Split(RemoteFile,";")
 	for _,v := range rfs {
+		fmt.Println("config:",v)
 		_, err := conn.ExecShell(fmt.Sprintf(" sed -i 's/%s/%s/g' %s", IP, newip,v))
 		if err != nil {
 			fmt.Println(err)

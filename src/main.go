@@ -111,6 +111,7 @@ func execShellWithPassword(username string, password string, port int, newip str
 }
 
 func execShellWithKey(username string, key string, port int, newip string) error {
+	fmt.Println("keypath:",key)
 	sconf := gassh.PrivateKey(username, key)
 	// 连接远程机器
 	sshconn, err := sconf.Connect(fmt.Sprintf("%s:%d", RemoteIp, port))

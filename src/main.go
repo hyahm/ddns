@@ -21,7 +21,7 @@ var AfterExec string
 func main() {
 	//gaconfig.InitConf("ddns")
 
-	galog.DefInitLogger("log",0,false)
+	//galog.DefInitLogger("log",0,false)
 
 	afterExec := flag.String("a", "nginx -s reload", "reload http server command")
 	interval := flag.Int("t", 60, "interval time, default 60 Second")
@@ -30,7 +30,7 @@ func main() {
 	port := flag.Int("P", 22, "ssh port")
 	username := flag.String("u", "root", "ssh username")
 	password := flag.String("p", "", "ssh password")
-	keyfile := flag.String("k", "~/.ssh/id_rsa", "ssh private key")
+	keyfile := flag.String("k", "", "ssh private key")
 	defaultip := flag.String("d", "", "default ip")
 
 	emailuser := flag.String("eu","","email username")

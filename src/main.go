@@ -49,7 +49,7 @@ func main() {
 	//	fmt.Println(*verbose)
 	//
 	//}
-
+	fmt.Println(*keyfile)
 	if *remoteIp == "" {
 		log.Fatal("server ip must be need, use -r serverip")
 	}

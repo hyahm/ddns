@@ -76,17 +76,20 @@ func main() {
 
 		if string(s) != IP {
 			if *emailuser != "" && *emailpwd != "" && *emailport != 0 && *emailto != "" {
+				galog.Access("update success")
 				email(*emailuser,*emailpwd ,*emailport,string(s),*emailto)
 			}
 
 			if *password != "" {
 				err = execShellWithPassword(*username, *password, *port, string(s))
 				if err != nil {
+					galog.Error(err.Error())
 					email(*emailuser,*emailpwd ,*emailport,"update fail",*emailto)
 				}
 			} else {
 				err = execShellWithKey(*username, *keyfile, *port, string(s))
 				if err != nil {
+					galog.Error(err.Error())
 					email(*emailuser,*emailpwd ,*emailport,"update fail",*emailto)
 				}
 			}

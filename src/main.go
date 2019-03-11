@@ -21,7 +21,7 @@ var AfterExec string
 func main() {
 	//gaconfig.InitConf("ddns")
 
-	//galog.DefInitLogger("log",0,false)
+	galog.DefInitLogger("log",0,false)
 
 	afterExec := flag.String("a", "nginx -s reload", "reload http server command")
 	interval := flag.Int("t", 60, "interval time, default 60 Second")

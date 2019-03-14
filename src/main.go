@@ -17,6 +17,7 @@ var IP string
 var RemoteIp string
 var RemoteFile string
 var AfterExec string
+var IPFile string
 
 func main() {
 	//gaconfig.InitConf("ddns")
@@ -31,7 +32,7 @@ func main() {
 	username := flag.String("u", "root", "ssh username")
 	password := flag.String("p", "", "ssh password")
 	keyfile := flag.String("k", "", "ssh private key")
-	defaultip := flag.String("d", "", "default ip")
+	defaultip := flag.String("d", "a.txt", "default ip file")
 
 	emailuser := flag.String("eu","","email username")
 	emailpwd := flag.String("ep","","email password")
@@ -60,7 +61,12 @@ func main() {
 	if *defaultip == "" {
 		log.Fatalf("defaultip ip must be need in %s",*remoteFile)
 	}
-	IP = *defaultip
+	sip ,err := ioutil.ReadFile(*defaultip)
+	if err != nil {
+		log.Fatal(err)
+	}
+	IPFile = *defaultip
+	IP = string(sip)
 	RemoteIp = *remoteIp
 	AfterExec = *afterExec
 	RemoteFile = *remoteFile
@@ -130,6 +136,8 @@ func execShellWithKey(username string, key string, port int, newip string) error
 	if err != nil {
 		return err
 	}
+	ioutil.WriteFile(IPFile,[]byte(newip),0644)
+
 	return nil
 }
 

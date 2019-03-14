@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -60,6 +61,10 @@ func main() {
 	}
 	if *defaultip == "" {
 		log.Fatalf("defaultip ip must be need in %s",*remoteFile)
+	}
+	_ ,err := os.Create(*defaultip)
+	if err != nil {
+		log.Fatal(err)
 	}
 	sip ,err := ioutil.ReadFile(*defaultip)
 	if err != nil {

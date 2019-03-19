@@ -148,9 +148,10 @@ func execShellWithKey(username string, key string, port int, newip string) error
 
 func exec(conn *gassh.SshConn, newip string) error {
 	rfs := strings.Split(RemoteFile,";")
+	//rootpath := "/usr/local/nginx/conf/vhost"
 	for _,v := range rfs {
 		fmt.Println("config:",v)
-		_, err := conn.ExecShell(fmt.Sprintf(" sed -i 's/%s/%s/g' %s", IP, newip,v))
+		_, err := conn.ExecShell(fmt.Sprintf(" sed -i 's/%s/%s/g' /usr/local/nginx/conf/vhost/%s", IP, newip,v))
 		if err != nil {
 			fmt.Println(err)
 			return err
